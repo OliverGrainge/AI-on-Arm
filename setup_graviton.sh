@@ -74,8 +74,9 @@ python3.10 -m pip install --upgrade \
     jupyterlab \
     ipykernel \
     ipywidgets \
-    seaborn
-    torch==2.8.0
+    seaborn \
+    torch==2.8.0 \
+    expecttest
 
 
 
