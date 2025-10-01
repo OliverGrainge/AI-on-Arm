@@ -75,50 +75,9 @@ python3.10 -m pip install --upgrade \
     ipykernel \
     ipywidgets \
     seaborn
-
-echo "======================================================================="
-echo "  10. Clone and patch 'ao' repo"
-echo "======================================================================="
-git clone --recursive https://github.com/pytorch/ao.git
-cd ao
-git checkout 174e630af2be8cd18bc47c5e530765a82e97f45b
-wget https://raw.githubusercontent.com/ArmDeveloperEcosystem/PyTorch-arm-patches/main/0001-Feat-Add-support-for-kleidiai-quantization-schemes.patch
-git apply --whitespace=nowarn 0001-Feat-Add-support-for-kleidiai-quantization-schemes.patch
-cd ..
-
-echo "======================================================================="
-echo "  11. Clone and patch 'torchchat' repo"
-echo "======================================================================="
-git clone --recursive https://github.com/pytorch/torchchat.git
-cd torchchat
-git checkout 925b7bd73f110dd1fb378ef80d17f0c6a47031a6
-wget https://raw.githubusercontent.com/ArmDeveloperEcosystem/PyTorch-arm-patches/main/0001-modified-generate.py-for-cli-and-browser.patch
-wget https://raw.githubusercontent.com/ArmDeveloperEcosystem/PyTorch-arm-patches/main/0001-Feat-Enable-int4-quantized-models-to-work-with-pytor.patch
-git apply 0001-Feat-Enable-int4-quantized-models-to-work-with-pytor.patch
-git apply --whitespace=nowarn 0001-modified-generate.py-for-cli-and-browser.patch
-
-echo "======================================================================="
-echo "  12. Install TorchChat requirements"
-echo "======================================================================="
-python3.10 -m pip install -r requirements.txt
-cd ..
-
-echo "======================================================================="
-echo "  13. Download and install custom Torch 2.5.0 wheel"
-echo "======================================================================="
-wget https://github.com/ArmDeveloperEcosystem/PyTorch-arm-patches/raw/main/torch-2.5.0.dev20240828+cpu-cp310-cp310-manylinux_2_17_aarch64.manylinux2014_aarch64.whl
-python3.10 -m pip install --force-reinstall \
-  torch-2.5.0.dev20240828+cpu-cp310-cp310-manylinux_2_17_aarch64.manylinux2014_aarch64.whl
+    torch==2.8.0
 
 
-echo "======================================================================="
-echo "  14. Re-install torchao from 'ao' source"
-echo "======================================================================="
-python3.10 -m pip uninstall -y torchao || true
-cd ao
-rm -rf build
-python3.10 setup.py install
-cd ..
 
 ####################
 # STEP 15: Clone and build processwatch (if not already cloned)
