@@ -31,26 +31,26 @@ else
 fi
 
 echo "======================================================================="
-echo "  4. Add deadsnakes PPA for Python 3.10"
+echo "  4. Add deadsnakes PPA for Python 3.12"
 echo "======================================================================="
 sudo add-apt-repository ppa:deadsnakes/ppa -y
 sudo apt-get update
 
 echo "======================================================================="
-echo "  5. Install Python 3.10 and related tools"
+echo "  5. Install Python 3.12 and related tools"
 echo "======================================================================="
 sudo apt install -y gcc g++ build-essential google-perftools \
-    python3.10 python3.10-venv python3.10-dev
+    python3.12 python3.12-venv python3.12-dev
 
 echo "======================================================================="
-echo "  6. Create (or recreate) Python 3.10 virtual environment 'graviton_env'"
+echo "  6. Create (or recreate) Python 3.12 virtual environment 'graviton_env'"
 echo "======================================================================="
 if [ -d graviton_env ]; then
     echo "Removing existing virtual environment 'graviton_env'..."
     rm -rf graviton_env
 fi
 
-python3.10 -m venv graviton_env
+python3.12 -m venv graviton_env
 
 echo "======================================================================="
 echo "  7. Activate the virtual environment"
@@ -61,22 +61,17 @@ source graviton_env/bin/activate
 echo "======================================================================="
 echo "  8. Upgrade pip"
 echo "======================================================================="
-python3.10 -m pip install --upgrade pip
+python3.12 -m pip install --upgrade pip
 
 echo "======================================================================="
-echo "  9. Install useful Python packages (excluding torch)"
+echo "  9. Install Python packages from graviton_requirements.txt"
 echo "======================================================================="
-python3.10 -m pip install --upgrade \
-    numpy \
-    matplotlib \
-    pandas \
-    transformers==4.39.3 \
-    jupyterlab \
-    ipykernel \
-    ipywidgets \
-    seaborn \
-    torch==2.8.0 \
-    expecttest
+if [ -f "graviton_requirements.txt" ]; then
+    python3.12 -m pip install -r graviton_requirements.txt
+else
+    echo "Error: graviton_requirements.txt not found!"
+    exit 1
+fi
 
 
 
