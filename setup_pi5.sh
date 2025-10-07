@@ -9,7 +9,7 @@ echo "======================================================================="
 echo "  1. Update and upgrade the system"
 echo "======================================================================="
 sudo apt update
-sudo apt upgrade -y
+#sudo apt upgrade -y
 
 #############################################################################
 # STEP 2: Install essential development packages
@@ -93,12 +93,13 @@ python3.12 -m pip install --upgrade \
     matplotlib \
     pandas \
     torch \
-    transformers \
+    transformers==4.53.3 \
     jupyterlab \
     ipykernel \
     ipywidgets \
     seaborn \
-    sentencepiece
+    sentencepiece \
+    mistral-common
 
 #############################################################################
 echo "======================================================================="
